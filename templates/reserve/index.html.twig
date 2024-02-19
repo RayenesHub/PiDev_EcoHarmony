@@ -1,0 +1,56 @@
+{% extends 'base_back.html.twig' %}
+
+{% block title %}Hello ReserveController!{% endblock %}
+
+{% block body %}
+<div class="row" style="display: flex;align-items:center ;justify-content: center;margin-top: 150px;">
+    <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+                <a href="{{path('addformreserve')}} "><i class="fa fa-arrow-circle-left" style="font-size: 150 px;"></i></a>
+                <h3 class="card-title">Liste des Reserve</h3>
+                 <table class="table table-striped">
+                     <thead>
+                <th>Nom reserve</th>
+                <th>Capacite</th>
+                <th>Lieu</th>
+                <th>ID</th>
+                    </thead>
+            <tbody>
+                {% for reserve in reserve %}
+                <tr>
+                <td>{{reserve.nomReserve}}</td>
+                <td>{{reserve.Capacite}}</td>
+                <td>{{reserve.Lieu}}</td>
+                <td>{{reserve.ID}}</td>
+
+                <td> <a class="btn btn-success" href="{{ path('editreserve',{'id':reserve.id})}}">modifier</a> </td>
+                <td> <a class="btn btn-danger   " href="{{ path('deletereserve',{'id':reserve.id})}}">supprimer</a> </td>
+            </tr>
+             {% endfor %}
+            </tbody>
+            
+            
+            
+            </table>
+        </div>
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+{% endblock %}

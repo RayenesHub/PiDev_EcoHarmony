@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+{%block body%}
+<div class="row" style="display: flex;align-items:center ;justify-content: center;margin-top: 150px;">
+    <div class="col-lg-9">
+        <div class="card">
+          <div class="card-body">
+              <a href="{{path('addformanimal')}} "><i class="fa fa-arrow-circle-left" style="font-size: 150 px;"></i></a>
+    <table class="table table-striped">
+        <thead>
+            <th>Categorie</th>
+            <th>Poid</th>
+            <th>Etat</th>
+            <th>Reserve</th>
+           
+        </thead>
+        <tbody>
+            {% for animal in animal %}
+            <tr>
+            <td>{{animal.Categorie}}</td>
+            <td>{{animal.Poid}}</td>
+            <td>{{animal.Etat}}</td>
+            <td>{{ animal.reserve.ID}}</td>
+            
+        </tr>
+         {% endfor %}
+        </tbody>
+        
+        
+        
+        </table>
+          </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Gestion dechet</title>
+        <link rel="icon" type="image/x-icon" href="{{ asset('assets_back/img/logo.png') }}" />
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="{{ asset('assets_back/css/styles.css') }}" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="sb-nav-fixed">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">The Tree Well</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+                </div>
+            </form>
+            <!-- Navbar-->            
+        </nav>
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            
+                            <div class="sb-sidenav-menu-heading">Interface</div>                             
+                            
+                            <a class="nav-link" href="user.html">
+                                <div class="sb-nav-link-icon"></i></div>
+                               user
+                            </a>
+                            <a class="nav-link" href="gestion_reserve_naturelle.html">
+                                <div class="sb-nav-link-icon"></i></div>
+                                Gestion reserve naturelle
+                            </a>
+                            <a class="nav-link" href="gestion_dechet.html">
+                                <div class="sb-nav-link-icon"></i></div>
+                                Gestion Dechet
+                            </a>
+                            <a class="nav-link" href="gestion_jardin.html">
+                                <div class="sb-nav-link-icon"></i></div>
+                                Gestion Jardin
+                            </a>
+                            <a class="nav-link" href="/nappeback">
+                                <div class="sb-nav-link-icon"></i></div>
+                                Gestion des nappes phréatiques
+                            </a>
+                            <a class="nav-link" href="gestion_evenement.html">
+                                <div class="sb-nav-link-icon"></i></div>
+                                Gestion evenement
+                            </a>
+                        </div>
+                    </div>
+                    
+                </nav>
+            </div>
+            
+            <div id="layoutSidenav_content">
+                <main>
+                   
+                    <div class="container">
+                
+                        <div class="col-xl-9 mx-auto">
+                           
+                            {% block body %}
+                            
+                            <section class="page-section cta">
+                                
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-9 mx-auto">
+                            <div class="cta-inner bg-faded text-center rounded">
+                                <h2 class="section-heading mb-4">
+                                    <h1>Les puits de la nappe selectionnée</h1>
+                                    <table border="3" class=centriq>
+                                <thead>
+                                    <tr>
+                                        
+                                        <th>Identifiant du puits</th>
+                                        <th>Diamètre</th>
+                                        <th>Date de fabrication</th>
+                                        <th>Type d'aquifères</th>
+                                        <th>Catégorie</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- JOINTURE avec idpuits(OneToMany in nappe.php) -->
+                                    {% for a in nappe.idpuits %}
+                                    <tr>
+                                        
+                                        <td>{{ a.idp }}</td>
+                                        <td>{{ a.diametre }}</td>
+                                        <td>{{ a.datefab|date('d-M-y') }}</td>
+
+                                        
+                                        <td>{{ a.debit }}</td>
+                                        <td>{{ a.equipement }}</td>
+                                        <td>
+                                      <td><a href="{{ path('puits_edit', {'id': a.id}) }}">Modifier</a></td>
+                                       <td><a href="{{ path('puits_delete', {'id': a.id}) }}">Supprimer</a></td>
+                                        
+                                        </td>
+                                    </tr>
+                                    
+                                    {% endfor %}
+                                    
+                                </tbody>
+                            </table>
+                            <a href ="{{path('puits_add')}}"><button> Ajouter un puits</button></a>
+                            <a href ="{{path('nappeback_show')}}"><button> Revenir aux nappes </button></a>
+                                      
+                                        </td>
+                                    </tr>
+                                    
+                                  
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+    
+                            {% endblock %}
+
+
+
+                </main>
+                
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+    </body>
+</html>

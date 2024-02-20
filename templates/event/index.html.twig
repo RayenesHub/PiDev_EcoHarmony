@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+       <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.png') }}" />
+
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+  <link href="{{ asset( 'css/styles.css')}}" rel="stylesheet" />
+    </head>
+    <body>
+        <header>
+            <h1 class="site-heading text-center text-faded d-none d-lg-block">
+                <span class="site-heading-upper text-primary mb-3">Protégeons la nature, préservons notre avenir</span>
+                <span class="site-heading-lower">The Tree Well</span>
+            </h1>
+        </header>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{{ path('app_index')}}">Acceuil</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="about.html">à propos</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="jardin.html">Jardins</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{{ path('app_event')}}">Évènement</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="animaux.html">Animaux</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="dechets.html">déchets</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="puits.html">Puits</a></li>
+                        <li class="nav-item px-lg-6"><a class="nav-link text-uppercase" href="index.html">Se Connecter</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <section class="page-section cta">
+        <style>
+    .zone-texte9 {
+        max-width: 600px; /* Définit la largeur maximale à ne pas dépasser */
+        display: inline-block; /* Permet à la balise span de respecter la propriété max-width */
+        word-wrap: break-word; /* Permet au texte de revenir à la ligne lorsque la limite de largeur est atteinte */
+        /* ou utilisez word-break: break-word; si vous avez des mots longs */
+            }
+        </style>
+            {%if events is empty or events is not defined%}
+                <h1 class="text-center text-uppercase" > <span class="site-heading-lower">Pas d'évènements disponibles</span> </h1>
+            {%else%}
+                <h1 class="text-center text-uppercase" > <span class="site-heading-lower">Les évènements disponibles</span> </h1>
+                {% for event in events %}
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-9 mx-auto">
+                                <div class="cta-inner bg-faded rounded">
+                                    <h2 class="section-heading mb-4">
+                                    <table>
+                                        <tr>
+                                            <td><img src="{{event.afficheEvent}}" alt="Description de l'image" width="200" height="300"></td>
+                                            <td style="width: 30px;"></td>
+                                            <td style="vertical-align: top;">
+                                                <span style="margin-top: 10px; display: inline-block;" class="section-heading-upper">-lieux:</span>
+                                                <span style="margin-top: 10px; font-size: 16px; ">{{event.lieuxEvent | upper}}</span>
+                                                <br>
+                                                <span style="margin-top: 10px;display: inline-block;" class="section-heading-upper">-date: </span>
+                                                <span style="margin-top: 10px; font-size: 16px; ">{{event.dateEvent | date('Y-m-d')}}</span>
+                                                <br>
+                                                <span style="margin-top: 10px;display: inline-block;" class="section-heading-upper">-heure: </span>
+                                                <span style="margin-top: 10px; font-size: 16px; ">{{event.heureDebut | date('H:i:s')}} - {{event.heureFin | date('H:i:s')}}</span>
+                                                <br>
+                                                <span style="margin-top: 10px;" class="section-heading-upper">-Description: </span>
+                                                <span style="margin-top: 10px;font-size: 16px;" class=" zone-texte9">{{event.descriptionEvent}}</span>
+                                                <br>
+                                                <div ><a class="btn btn-primary" href="{{ path('app_addParticipant',{'id':event.id})}}">Voir Plus...</a></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {%endif%}
+        </section>
+        <footer class="footer text-faded text-center py-5">
+            <div class="container"><p class="m-0 small">Copyright &copy; The Tree Well 2024</p></div>
+        </footer>
+            
+        {% endblock %}
+
+        {% block javascripts %}
+ <!-- Bootstrap core JS-->
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js') }}"></script>
+
+        <!-- Core theme JS-->
+<script src="{{ asset('js/scripts.js') }}"></script>
+
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>

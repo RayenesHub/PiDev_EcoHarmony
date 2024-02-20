@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PlanteRepository;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: PlanteRepository::class)]
 class Plante
 {
@@ -14,16 +14,28 @@ class Plante
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "Le nom de la plante est obligatoire.")]
+    #[Assert\Length(
+        max: 50,
+        maxMessage: "Le nom de la plante ne peut pas dépasser 50 caractères."
+    )]
     private ?string $nom = null;
 
     #[ORM\Column(length: 50)]
     private ?string $famille = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Regex(
+        pattern: "/^[^\@\#\$\%\^\&\*\(\)\+=\[\]\{\};:,\.<>\?]*$/",
+        message: "La description ne doit pas contenir de caractères spéciaux."
+    )]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'plante')]
     private ?Jardin $jardin = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image=null ;
 
     public function getId(): ?int
     {
@@ -74,6 +86,18 @@ class Plante
     public function setJardin(?Jardin $jardin): static
     {
         $this->jardin = $jardin;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un jardin{% endblock %}
+
+{% block navbar %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.html">Acceuil</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="about.html">À propos</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="jardin.html">Jardin</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="event.html">Évènement</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="animaux.html">Animaux</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="dechets.html">Déchets</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="puits.html">Puits</a></li>
+                    <li class="nav-item px-lg-6"><a class="nav-link text-uppercase" href="index.html">Se Connecter</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <!-- Container pour le titre -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h3 class="card-title title-text">Ajouter un jardin</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {{ form_start(form) }}
+                            <!-- Champs de formulaire pour ajouter un jardin -->
+                            <button type="submit" class="btn btn-primary">Ajouter</button>
+                            <a href="{{ path('app_addJardin') }}" class="btn btn-secondary">Annuler</a>
+                            {{ form_end(form) }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container pour la liste des jardins -->
+    <div class="container garden-list-container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                {% for j in jardin %}
+                    <!-- Afficher les détails du jardin si nécessaire -->
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

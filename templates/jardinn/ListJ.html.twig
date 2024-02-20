@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Jardins{% endblock %}
+
+{% block navbar %}
+    <!-- Navbar -->
+    <!-- Votre code de navbar reste le même -->
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2 class="text-rose">Liste des Jardins</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="text-rose">ID</th>
+                    <th class="text-rose">Nom</th>
+                    <th class="text-rose">Adresse</th>
+                    <!-- Ajoutez d'autres colonnes si nécessaire -->
+                    <th class="text-rose">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for j in jardin %}
+                    <tr>
+                        <td>{{ j.id }}</td>
+                        <td>{{ j.lieu}}</td>
+                        <td>{{ j.taille  }}</td>
+                        <!-- Ajoutez d'autres colonnes si nécessaire -->
+                      <td>
+                            <a href="{{ path('app_delete_jardin', {'id': j.id}) }}" class="btn btn-danger">Supprimer</a>
+                              <a href="{{ path('app_update_jardin', {'id': j.id}) }}" class="btn btn-info">Mettre à jour</a> 
+                        </td> 
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('app_addJardin') }}" class="btn btn-primary">Ajouter un jardin</a>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <!-- Footer -->
+    <!-- Votre code de footer reste le même -->
+{% endblock %}

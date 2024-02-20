@@ -6,7 +6,7 @@ use App\Repository\JardinRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: JardinRepository::class)]
 class Jardin
 {
@@ -16,17 +16,28 @@ class Jardin
     private ?int $id = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: "Le lieu du jardin est obligatoire.")]
+    #[Assert\Length(
+        max: 10,
+        maxMessage: "Le lieu du jardin ne peut pas dépasser 10 caractères."
+    )]
     private ?string $lieu = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\Length(
+        min: 1,
+        max: 20,
+        minMessage: "La taille du jardin doit comporter au moins {{1 }} caractère.",
+        maxMessage: "La taille du jardin ne peut pas dépasser {{ 20}} caractères."
+    )]
     private ?string $taille = null;
 
-    #[ORM\OneToMany(mappedBy: 'jardin', targetEntity: plante::class)]
-    private Collection $plante;
+    #[ORM\OneToMany(mappedBy: 'jardin', targetEntity: Plante::class)]
+    private Collection $Plante;
 
     public function __construct()
     {
-        $this->plante = new ArrayCollection();
+        $this->Plante = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -59,32 +70,38 @@ class Jardin
     }
 
     /**
-     * @return Collection<int, plante>
+     * @return Collection<int, Plante>
      */
     public function getPlante(): Collection
     {
-        return $this->plante;
+        return $this->Plante;
     }
 
-    public function addPlante(plante $plante): static
+    public function addPlante(Plante $Plante): static
     {
-        if (!$this->plante->contains($plante)) {
-            $this->plante->add($plante);
-            $plante->setJardin($this);
+        if (!$this->Plante->contains($Plante)) {
+            $this->Plante->add($Plante);
+            $Plante->setJardin($this);
         }
 
         return $this;
     }
 
-    public function removePlante(plante $plante): static
+    public function removePlante(Plante $Plante): static
     {
-        if ($this->plante->removeElement($plante)) {
+        if ($this->Plante->removeElement($Plante)) {
             // set the owning side to null (unless already changed)
-            if ($plante->getJardin() === $this) {
-                $plante->setJardin(null);
+            if ($Plante->getJardin() === $this) {
+                $Plante->setJardin(null);
             }
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        // Vous pouvez ajuster la chaîne de caractères selon vos besoins
+        return $this->lieu . ' (' . $this->taille . ')';
     }
 }

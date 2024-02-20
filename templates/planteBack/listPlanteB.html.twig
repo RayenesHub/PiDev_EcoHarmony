@@ -1,0 +1,54 @@
+{% extends 'admin/indexAdmin.html.twig' %}
+
+{% block title %}Liste des Plantes - Back{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.png') }}" />
+    <link href="{{ asset('https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets_back/css/styles.css') }}" rel="stylesheet" />
+    <script src="{{ asset('https://use.fontawesome.com/releases/v6.3.0/js/all.js') }}" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mt-4">Liste des Plantes</h2>
+    <!-- Retirer le bouton Ajouter une Plante si la fonctionnalité n'est pas encore implémentée -->
+    <a href="{{ path('app_addPlanteB') }}" class="btn btn-success mb-3">Ajouter une Plante</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Famille</th>
+                <th>Description</th>
+                <th>Jardin</th>
+             
+                <!-- <th>Actions</th> -->
+            </tr>
+        </thead>
+       <tbody>
+    {% for plante in plantes %}
+        <tr>
+            <td>{{ plante.nom }}</td>
+            <td>{{ plante.famille }}</td>
+            <td>{{ plante.description }}</td>
+            <td>{{ plante.jardin ? plante.jardin.lieu : 'Non assigné' }}</td> 
+             <td>
+                <!-- Bouton de suppression -->
+                <a href="{{ path('app_delete_planteB', {'id': plante.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette plante ?');">Supprimer</a>
+                 <a href="{{ path('app_update_planteB', {'id': plante.id}) }}" class="btn btn-primary btn-sm">Mettre à jour</a>
+            </td>
+        </tr>
+    {% endfor %}
+</tbody>
+    </table>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/scripts.js') }}"></script>
+    <script src="{{ asset('js/simple-datatables@latest') }}" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/datatables-simple-demo.js') }}"></script>
+{% endblock %}

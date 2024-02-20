@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Plantes{% endblock %}
+
+{% block navbar %}
+    <!-- Navbar -->
+    <!-- Votre code de navbar reste le même -->
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+       <h2 class="text-rose">Liste des Plantes</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th class="text-rose">ID</th>
+            <th class="text-rose">Nom</th>
+            <th class="text-rose">Famille</th>
+            <th class="text-rose">Description</th>
+            <th class="text-rose">Image</th>
+            <th class="text-rose">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for plante in plantes %}
+        <tr>
+            <td>{{ plante.id }}</td>
+            <td>{{ plante.nom }}</td>
+            <td>{{ plante.famille }}</td>
+            <td>{{ plante.description }}</td>
+<td>
+                    {% if plante.image %}
+                        <img src="{{ asset('uploads/images/' ~ plante.image) }}" alt="Image de {{ plante.nom }}" style="width: 100px; height: auto;">
+                    {% else %}
+                        Pas d'image
+                    {% endif %}
+                </td>
+            <td>
+
+                            <a href="{{ path('app_delete_plante', {'id': plante.id}) }}" class="btn btn-danger">Supprimer</a>
+                              <a href="{{ path('app_update_plante', {'id': plante.id}) }}" class="btn btn-info">Mettre à jour</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('app_addPlante') }}" class="btn btn-primary">Ajouter une plante</a>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <!-- Footer -->
+    <!-- Votre code de footer reste le même -->
+{% endblock %}

@@ -120,6 +120,8 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   line-height: 1.2;
 }
 
+
+
 h1, .h1 {
   font-size: calc(1.375rem + 1.5vw);
 }
@@ -131,12 +133,27 @@ h1, .h1 {
 
 h2, .h2 {
   font-size: calc(1.325rem + 0.9vw);
+  color: #ffb6c1; 
 }
 @media (min-width: 1200px) {
   h2, .h2 {
     font-size: 2rem;
+    color: #ffb6c1; 
   }
 }
+.title-text {
+  color: #ffb6c1; /* Rose bébé clair */
+}
+
+.plant-list-container .plante {
+  color: #ffb6c1; /* Rose bébé clair */
+}
+.plante-item {
+  color: #ffb6c1; /* Rose bébé clair */
+}
+
+
+
 
 h3, .h3 {
   font-size: calc(1.3rem + 0.6vw);
@@ -145,7 +162,13 @@ h3, .h3 {
   h3, .h3 {
     font-size: 1.75rem;
   }
+  h3, .h3 {
+    color: #ffb6c1; /* Rose bébé clair */
+  }
 }
+
+
+
 
 h4, .h4 {
   font-size: calc(1.275rem + 0.3vw);
@@ -640,8 +663,20 @@ progress {
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-right: auto;
   margin-left: auto;
+  color: #ffb6c1; 
+  
+  
+}
+.div.container {
+  color: #ffb6c1; /* Rose bébé clair */
 }
 
+.plante {
+  color: #ffb6c1; /* Rose bébé clair */
+}
+table.table-striped th.text-rose {
+  color: #ffb6c1; /* Rose bébé clair */
+}
 @media (min-width: 576px) {
   .container-sm, .container {
     max-width: 540px;
@@ -650,21 +685,25 @@ progress {
 @media (min-width: 768px) {
   .container-md, .container-sm, .container {
     max-width: 720px;
+    color: #ffb6c1; 
   }
 }
 @media (min-width: 992px) {
   .container-lg, .container-md, .container-sm, .container {
     max-width: 960px;
+    color: #ffb6c1; 
   }
 }
 @media (min-width: 1200px) {
   .container-xl, .container-lg, .container-md, .container-sm, .container {
     max-width: 1140px;
+    color: #ffb6c1; 
   }
 }
 @media (min-width: 1400px) {
   .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
     max-width: 1320px;
+    color: #ffb6c1; 
   }
 }
 .row {
@@ -1760,6 +1799,7 @@ progress {
   background-color: var(--bs-table-bg);
   border-bottom-width: 1px;
   box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+  color: #ffb6c1; 
 }
 .table > tbody {
   vertical-align: inherit;
@@ -1797,6 +1837,7 @@ progress {
 .table-striped > tbody > tr:nth-of-type(odd) > * {
   --bs-table-accent-bg: var(--bs-table-striped-bg);
   color: var(--bs-table-striped-color);
+  color: #ffb6c1; 
 }
 
 .table-striped-columns > :not(caption) > tr > :nth-child(even) {
@@ -11036,3 +11077,7 @@ p {
 .address strong {
   font-size: 1.2rem;
 }
+.text-rose {
+  color: #ffb6c1; /* Rose bébé clair */
+}
+ 

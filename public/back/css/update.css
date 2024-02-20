@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+
+.form-update-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.form-update {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 2vw 4vw;
+  width: 60%;
+  max-width: 600px;
+  border-radius: 10px;
+}
+
+.form-update h2 {
+  text-align: center;
+  color: #e65b00;
+  margin-bottom: 20px;
+}
+
+.form-update-input {
+  border: 0;
+  margin: 10px 0px;
+  padding: 20px;
+  outline: none;
+  background: #f5f5f5;
+  font-size: 16px;
+  border-radius: 10px;
+  resize: none;
+}
+
+.form-update-btn {
+  background: white;
+  color: #e65b00;
+  border: 1px solid #e65b00;
+  padding: 15px;
+  font-size: 1rem;
+  outline: none;
+  cursor: pointer;
+  width: 100%;
+  font-weight: bold;
+  margin: 20px auto 0;
+  border-radius: 30px;
+  transition: all .5s ease-in;
+}
+
+.form-update-btn:hover {
+  border: 1px solid #e65b00;
+  background: #e65b00;
+  color: white;
+}

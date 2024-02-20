@@ -1,0 +1,96 @@
+{% extends 'baseBack.html.twig' %}
+
+
+{% block title %}Edit User{% endblock %}
+{% block body %}
+<link href="{{asset('back/css/styles.css')}}" rel="stylesheet" />
+                <link href="{{asset('back/css/update.css')}}" rel="stylesheet" />
+  <style>
+  .input-box i{
+    position: relative;
+    top: -35px;
+    left: 17px;
+    color: #fff;
+}
+        
+
+         .delete-form,
+    {
+        color: #ffffff !important;
+    }
+    </style>
+   <div class=" mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="p-5">
+                    <h1 class="h4 text-gray-900 mb-4">Modifier Votre Profile</h1>
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                   
+                   
+                   
+                     <div class="form-group">
+                        {{ form_row(form.nom, {'attr': {'class': 'form-control form-update-input input-field'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.prenom, {'attr': {'class': 'form-control form-update-input input-field'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.cin, {'attr': {'class': 'form-control form-update-input'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.email, {'attr': {'class': 'form-control form-update-input'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.adresse, {'attr': {'class': 'form-control form-update-input'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.numerotel, {'attr': {'class': 'form-control form-update-input'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.mdp.first, {'attr': {'class': 'form-control form-update-input'}}) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form.mdp.second, {'attr': {'class': 'form-control form-update-input'}}) }}
+                    </div>
+
+            
+        
+       
+
+</div>
+                    
+
+                 
+
+                    <div class="form-group">
+                        {{ form_row(form.image, {'attr': {'class': 'form-control form-update-input'}}) }}
+                    </div>
+
+                    
+                    <button type="submit" id="sendUpdate" class="form-update-btn">Confirmer</button>
+                    {{ form_end(form) }}
+
+                    <div >
+                    <br>
+                        <div "class="delete-form"></div>
+                        <a href="{{ path('app_user_index') }}" class="btn btn-secondary btn-user btn-block btn-lg">
+                            <span class="icon text-gray-600">
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+                            <span class="text">Retour</span>
+                        </a>
+                    </div>
+                    <br>
+                    <div "class="btn btn-secondary btn-user btn-block btn-lg">
+                    {{ include('user/_delete_form.html.twig') }}
+                    <br>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

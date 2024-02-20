@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+{% block body %}
+  <style>
+  .input-box i{
+    position: relative;
+    top: -35px;
+    left: 17px;
+    color: #fff;
+}
+.submit{
+    font-size: 15px;
+    font-weight: 500;
+    color: black;
+    height: 45px;
+    width: 100%;
+    border: none;
+    border-radius: 30px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: .3s ease-in-out;
+}
+        .container,
+        .form-group,
+        .h1,
+        .text-gray-900,
+        .btn-light,
+        .btn-icon-split,
+        .text-gray-600 {
+            color: #ffffff !important;
+        }
+
+         .delete-form,
+    {
+        color: #ffffff !important;
+    }
+    </style>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="p-5">
+                    <h1 class="h4 text-gray-900 mb-4">Modifier Profile</h1>
+                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+                    <div class="form-group">
+                        {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.cin, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.adresse, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.numerotel, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.mdp.first, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.mdp.second, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+
+                    <div class="form-group">
+                        {{ form_row(form.image, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                    <br>
+                    <div class="form-group">
+    <div class="input-box">
+                <button type="submit" class="submit">Modifier</button>
+            </div>
+
+</div>
+
+                    {{ form_end(form) }}
+<br>
+                    <div>
+                        <div class="delete-form"></div>
+                        <a href="{{ path('app_index') }}" class="btn btn-secondary btn-user btn-block btn-lg">
+                            <span class="icon text-gray-600">
+                                <i class="fas fa-arrow-right"></i>
+                            </span>
+                            <span class="text">Retour</span>
+                        </a>
+                    </div>
+                    <br>
+
+                    <div class="btn btn-secondary btn-user btn-block btn-lg">
+                        {{ include('user/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

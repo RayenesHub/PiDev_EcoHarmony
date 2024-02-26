@@ -1,31 +1,28 @@
 <?php
 
 namespace App\Repository;
-use App\Entity\Nappe;
-use App\Entity\Puits;
+
+use App\Entity\Plage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Puits>
+ * @extends ServiceEntityRepository<Plage>
  *
- * @method Puits|null find($id, $lockMode = null, $lockVersion = null)
- * @method Puits|null findOneBy(array $criteria, array $orderBy = null)
- * @method Puits[]    findAll()
- * @method Puits[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Plage|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Plage|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Plage[]    findAll()
+ * @method Plage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PuitsRepository extends ServiceEntityRepository
+class PlageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Puits::class);
+        parent::__construct($registry, Plage::class);
     }
 
-
-
-
 //    /**
-//     * @return Puits[] Returns an array of Puits objects
+//     * @return Plage[] Returns an array of Plage objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -39,7 +36,7 @@ class PuitsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Puits
+//    public function findOneBySomeField($value): ?Plage
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')

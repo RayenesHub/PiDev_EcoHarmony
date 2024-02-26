@@ -13,7 +13,7 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/event">Évènement</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/animaux">Animaux</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/recyclage">Recyclage</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/nappe">Ressources </a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/plage">Protection marine </a></li>
                         <li class="nav-item px-lg-6"><a class="nav-link text-uppercase" href="index.html">Se Connecter</a></li>
                     </ul>
                 </div>
@@ -38,64 +38,49 @@
         
         
         
-            <div class="container">
-                
-                    <div class="col-xl-9 mx-auto">
-                       
-                        {% block body %}
-                        
-                        <section class="page-section cta">
-                            
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-9 mx-auto">
-                        <div class="cta-inner bg-faded text-center rounded">
-                            <h2 class="section-heading mb-4">
-                                
-                                <h1>Les puits de la nappe selectionnée</h1>
-                                <table border="3" class=centriq >
-                            <thead>
-                                <tr>
-                                    
-                                    <th>Identifiant du puits</th>
-                                    <th>Diamètre</th>
-                                    <th>Date de fabrication</th>
-                                    <th>Type d'aquifères</th>
-                                    <th>Catégorie</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- JOINTURE avec idpuits(OneToMany in nappe.php) -->
-                                {% for a in nappe.idpuits %}
-                                <tr>
-                                    
-                                    <td>{{ a.idp }}</td>
-                                    <td>{{ a.diametre }}</td>
-                                    <td>{{ a.datefab|date('d-M-y') }}</td>
+        <div class="row" style="display: flex;align-items:center ;justify-content: center;margin-top: 150px;">
+            <div class="col-lg-9">
+                <div class="card">
+                  <div class="card-body">
+                     
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                                            
+                        <th>Nom de l'équipe</th>
+                        <th>Membres</th>
+                        <th>Mission</th>
+                        <th>Date de création</th>
+                        <th>Durée</th>
 
-                                    
-                                    <td>{{ a.debit }}</td>
-                                    <td>{{ a.equipement }}</td>
-                                </tr>
-                                
-                                {% endfor %}
-                                
-                            </tbody>
-                        </table>
-                        <a href ="{{path('nappe_show')}}"><button > Revenir aux nappes  </button></a>
-                    </div>
+
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- JOINTURE avec equipes(OneToMany in plage.php) -->
+                    {% for e in plage.equipes %}
+                    <tr>
+                        <td>{{ e.nom }}</td>
+                        <td>{{ e.member }}</td>
+                        <td>{{ e.mission }}</td>
+                        <td>{{ e.date|date('d-M-y') }}</td>
+                      <td>{{e.debut | date('H:i:s')}} - {{e.fin | date('H:i:s')}}</td>  
+                     <td>
+                        
+                        </td>
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody> 
+                </table>
+                
+
+                  </div>
                 </div>
             </div>
         </div>
         
-
-                        {% endblock %}
-
-                    </div>
-               
-            </div>
-        </section>
         <footer class="footer text-faded text-center py-5">
             <div class="container"><p class="m-0 small">Copyright &copy; The Tree Well 2024</p></div>
         </footer>

@@ -13,7 +13,7 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/event">Évènement</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/animaux">Animaux</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/recyclage">Recyclage</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/nappe">Ressources </a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="/plage">Protection des rivages </a></li>
                         <li class="nav-item px-lg-6"><a class="nav-link text-uppercase" href="index.html">Se Connecter</a></li>
                     </ul>
                 </div>
@@ -38,58 +38,44 @@
         
         
         
-            <div class="container">
+        <div class="row" style="display: flex;align-items:center ;justify-content: center;margin-top: 150px;">
+            <div class="col-lg-9">
+                <div class="card">
+                  <div class="card-body">
+                     
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                                            
+                        <th>Description</th>
+                        <th>Surnom</th>
+                        <th>Ville</th>
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in plage %}
+                    <tr>
+                    
+                    
+                     <td><img src="{{p.pic}}" width="500" height="250"></td><!--Insertion d'image avec img src-->
+                     <td>{{ p.surnom }}</td>
+                     <td>{{ p.region }}</td>
+                     <td>
+                        <a href ="{{path('equipe_show',{'id':p.id})}}"><button> Equipes en charge </button></a>
+                        </td>
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody> 
+                </table>
                 
-                    <div class="col-xl-9 mx-auto">
-                       
-                        {% block body %}
-                        
-                        <section class="page-section cta">
-                            
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-9 mx-auto">
-                        <div class="cta-inner bg-faded text-center rounded">
-                            <h2 class="section-heading mb-4">
-                                <h1>Liste des nappe phréatiques</h1>
-                                <table border="3" class=centriq>
-                            <thead>
-                                <tr>
-                                    <th>Identifiant</th>
-                                    <th>Géologie</th>
-                                    <th>Température</th>
-                                    <th>Profondeur</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for nappe in nappe %}
-                                <tr>
-                                
-                                 <td>{{ nappe.id }}</td>
-                                 <td>{{ nappe.geologie }}</td>
-                                 <td>{{ nappe.temperature }}</td>
-                                 <td>{{ nappe.profondeur }}</td>
-                                 <td>
-                                    <a href ="{{path('puits_show',{'id':nappe.id})}}"><button> Puits associés </button></a>
-                                    </td>
-                                </tr>
-                                
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
+
+                  </div>
                 </div>
             </div>
         </div>
         
-
-                        {% endblock %}
-
-                    </div>
-               
-            </div>
-        </section>
         <footer class="footer text-faded text-center py-5">
             <div class="container"><p class="m-0 small">Copyright &copy; The Tree Well 2024</p></div>
         </footer>

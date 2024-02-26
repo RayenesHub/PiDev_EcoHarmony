@@ -47,13 +47,13 @@
                                 <div class="sb-nav-link-icon"></i></div>
                                 Gestion Dechet
                             </a>
-                            <a class="nav-link" href="gestion_jardin.html">
+                            <a class="nav-link" href="nappe_show">
                                 <div class="sb-nav-link-icon"></i></div>
                                 Gestion Jardin
                             </a>
-                            <a class="nav-link" href="/nappeback">
+                            <a class="nav-link" href="/plageback">
                                 <div class="sb-nav-link-icon"></i></div>
-                                Gestion des nappes phréatiques
+                                Gestion des rivages
                             </a>
                             <a class="nav-link" href="gestion_evenement.html">
                                 <div class="sb-nav-link-icon"></i></div>
@@ -64,69 +64,60 @@
                     
                 </nav>
             </div>
-            
             <div id="layoutSidenav_content">
                 <main>
                    
-                    <div class="container">
-                
-                        <div class="col-xl-9 mx-auto">
-                           
-                            {% block body %}
-                            
-                            <section class="page-section cta">
-                                
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-9 mx-auto">
-                            <div class="cta-inner bg-faded text-center rounded">
-                                <h2 class="section-heading mb-4">
-                                    <h1>Liste des nappe phréatiques</h1>
-                                    <table border="3" class=centriq>
-                                <thead>
-                                    <tr>
-                                        <th>Identifiant</th>
-                                        <th>Géologie</th>
-                                        <th>Température</th>
-                                        <th>Profondeur</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for nappe in nappe %}
-                                    <tr>
-                                    
-                                    <td>{{ nappe.id }}</td>
-                                        <td>{{ nappe.geologie }}</td>
-                                        <td>{{ nappe.temperature }}</td>
-                                        <td>{{ nappe.profondeur }}</td>
-                                        <td>
-                                            <a href ="{{path('nappe_update',{'id':nappe.id})}}">Modifier</a> 
-                                            <a href ="{{path('nappe_delete',{'id':nappe.id})}}">Supprimer</a>
-                                            <a href ="{{path('puitsback_show',{'id':nappe.id})}}"><button> Puits associés </button></a>
-                                        </td>
-                                    </tr>
-                                    
-                                    {% endfor %}
-                                    
-                                </tbody>
-                                
-                            </table>
-                            
-                        </div>
-                        <a href ="{{path('nappe_add')}}"><button> Ajouter une nappe d'eau </button></a>
-                    </div>
-                    
-                </div>
-            </div>
+                    <div class="row" style="display: flex;align-items:center ;justify-content: center;margin-top: 150px;">
+                        <div class="col-lg-9">
+                            <div class="card">
+                              <div class="card-body">
+                                 
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Identifiant de la plage</th>
+                                    <th>Identifiant de l'équipe</th>                 
+                                    <th>Nom de l'équipe</th>
+                                    <th>Membres</th>
+                                    <th>Mission</th>
+                                    <th>Date de création</th>
+                                    <th>Durée</th>
             
-    
-                            {% endblock %}
+            
+                              
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- JOINTURE avec equipes(OneToMany in plage.php) -->
+                                {% for e in plage.equipes %}
+                                <tr>
+                                    <td>{{ e.plage.id }}</td>
+                                    <td>{{ e.id }}</td>
+                                    <td>{{ e.nom }}</td>
+                                    <td>{{ e.member }}</td>
+                                    <td>{{ e.mission }}</td>
+                                    <td>{{ e.date|date('d-M-y') }}</td>
+                                  <td>{{e.debut | date('H:i:s')}} - {{e.fin | date('H:i:s')}}</td>  
+                                 <td>
+                                    <a href="{{ path('equipe_edit', {id: e.id}) }}">Ajuster l'équipe</a>
+                                    <a href="{{ path('equipe_delete', {id: e.id}) }}">Retirer</a>
+                                    </td>
+                                </tr>
+                                
+                                {% endfor %}
+                            </tbody> 
+                            </table>
+                            <a href ="{{path('equipe_add')}}"><button> Ajouter une equipe</button></a>
+                            <a href ="{{path('plageback_show')}}"><button> Revenir aux plages </button></a>
+            
+                              </div>
+                            </div>
+                        </div>
+                    </div>
 
 
-                           
+
                 </main>
-                
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">

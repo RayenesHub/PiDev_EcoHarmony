@@ -66,6 +66,23 @@
     </style>
     </head>
     <body>
+       {% if app.user is null %}
+    {# Redirect non-authenticated users to the logout page #}
+    {% set targetPath = path('app_logout') %}
+    <script>
+        window.location.href = "{{ targetPath }}";
+    </script>
+{% elseif not is_granted('IS_AUTHENTICATED_FULLY') %}
+    {# Redirect users without full authentication to the logout page #}
+    {% set targetPath = path('app_logout') %}
+    <script>
+        window.location.href = "{{ targetPath }}";
+    </script>
+{% elseif app.user.prenom is null %}
+    {# Handle the case when the 'prenom' attribute is null #}
+    <p>Welcome, anonymous user!</p>
+
+{% endif %}
         <header>
             <h1 class="site-heading text-center text-faded d-none d-lg-block">
                 <span class="site-heading-upper text-primary mb-3">Protégeons la nature, préservons notre avenir</span>
@@ -86,9 +103,11 @@
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="#">Animaux</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="#">déchets</a></li>
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="#">Puits</a></li>
+                      {% if app.user  %}
                         <li class="nav-item px-lg-4">
                             <span class="body ">{{ app.user.prenom ~ ' ' ~ app.user.nom }}</span>
                         </li>
+                    
 
                         <div class="dropdown">
                             <button class="dropbtn">
@@ -98,6 +117,7 @@
                             <a href="{{ path('app_user_edit', {'id': app.user.id}) }}">Profile</a>
                             <a href={{path('app_logout')}}>Se déconnecter</a>
                         </div>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

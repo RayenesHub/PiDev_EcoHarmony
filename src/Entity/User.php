@@ -3,14 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Doctrine\DBAL\Types\Types;
-use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
 
 
 
@@ -39,7 +35,7 @@ class User implements UserInterface//, TwoFactorInterface
     private ?string $cin = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'L\'Le nom ne doit pas être vide.')]
+    #[Assert\NotBlank(message: '\'Le nom ne doit pas être vide.')]
     #[Assert\Length(
         min: 2,
         max: 50,
@@ -53,7 +49,7 @@ class User implements UserInterface//, TwoFactorInterface
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: 'L\'Le pronom ne doit pas être vide.')]
+    #[Assert\NotBlank(message: '\'Le pronom ne doit pas être vide.')]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255)]
@@ -92,6 +88,12 @@ class User implements UserInterface//, TwoFactorInterface
     #[ORM\Column(length: 255)]
     
     private ?string $image = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $googleID = null;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $resetToken ;
 
     public function getId(): ?int
     {
@@ -236,22 +238,28 @@ class User implements UserInterface//, TwoFactorInterface
         return $this->email;
     }
   
+    public function getGoogleID(): ?string
+    {
+        return $this->googleID;
+    }
 
-    
+    public function setGoogleID(?string $googleID): self
+    {
+        $this->googleID = $googleID;
 
-    
+        return $this;
+    }
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
 
-    
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
 
-
-   
-
-    
-
-
-    
-
-    
+        return $this;
+    }
 
 }
 

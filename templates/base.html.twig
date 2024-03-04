@@ -67,12 +67,23 @@
     </head>
     <body>
     {% if app.user is null %}
-            {# Redirect non-authenticated users to the logout page #}
-            {% set targetPath = path('app_logout') %}
-            <script>
-                window.location.href = "{{ targetPath }}";
-            </script>
-            {% endif%}
+    {# Redirect non-authenticated users to the logout page #}
+    {% set targetPath = path('app_logout') %}
+    <script>
+        window.location.href = "{{ targetPath }}";
+    </script>
+{% elseif not is_granted('IS_AUTHENTICATED_FULLY') %}
+    {# Redirect users without full authentication to the logout page #}
+    {% set targetPath = path('app_logout') %}
+    <script>
+        window.location.href = "{{ targetPath }}";
+    </script>
+{% elseif app.user.prenom is null %}
+    {# Handle the case when the 'prenom' attribute is null #}
+    <p>Welcome, anonymous user!</p>
+
+{% endif %}
+             
     
         <header>
             <h1 class="site-heading text-center text-faded d-none d-lg-block">

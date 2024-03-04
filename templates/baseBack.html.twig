@@ -12,23 +12,7 @@
         <link href="{{ asset('css/stylesback.css') }}" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 
-        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-            {# Redirect non-authenticated users to the logout page #}
-            {% set targetPath = path('app_logout') %}
-            <script>
-                window.location.href = "{{ app_logout }}";
-            </script>
-        {% elseif  app.user is null %}
-            {# Redirect users without full authentication to the logout page #}
-            {% set targetPath = path('app_logout') %}
-            <script>
-                window.location.href = "{{ app_logout }}";
-            </script>
-            {% elseif app.user.role != 'admin' %}
-        <script>
-            window.location.href = "{{ path('app_index') }}";
-        </script>
-    {% endif %}
+      
             
         
        <style>
@@ -95,6 +79,23 @@
 
     </head>
     <body class="sb-nav-fixed">
+      {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+            {# Redirect non-authenticated users to the logout page #}
+            {% set targetPath = path('app_logout') %}
+            <script>
+                window.location.href = "{{ targetPath }}";
+            </script>
+        {% elseif  app.user is null %}
+            {# Redirect users without full authentication to the logout page #}
+            {% set targetPath = path('app_logout') %}
+            <script>
+                window.location.href = "{{ targetPath }}";
+            </script>
+            {% elseif app.user.role != 'admin' %}
+        <script>
+            window.location.href = "{{ path('app_index') }}";
+        </script>
+    {% endif %}
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="#">The Tree Well</a>
@@ -106,17 +107,21 @@
                             </div>
                         </form>
                         <h1 class="navbar-brand ps-3" >
+                        {% if app.user %}
                             <span class="body ">{{ app.user.prenom ~ ' ' ~ app.user.nom }}</span>
+                        
                         </h1>
                   
     <div class="dropdown">
-                            
+                            {% if app.user %}
                                 <img class="user-profile-img" src="{{ asset('img/' ~ app.user.image) }}"  alt="Dropdown Icon">
+                                {%endif%}
                             
                         <div class="dropdown-content">
                             <a href="{{ path('app_user_editback', {'id': app.user.id}) }}">Profile</a>
                             <a href={{path('app_logout')}}>Se déconnecter</a>
                         </div>
+                        {% endif %}
       </div>
       </div>
 
@@ -128,9 +133,13 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">                         
                             
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{path('app_user_index')}}">
                                 <div class="sb-nav-link-icon"></i></div>
-                               user
+                               Utilisateurs
+                            </a>
+                            <a class="nav-link" href="{{path('app_user_newback')}}">
+                                <div class="sb-nav-link-icon"></i></div>
+                               Ajouter un Admin
                             </a>
                             <a class="nav-link" href="#">
                                 <div class="sb-nav-link-icon"></i></div>

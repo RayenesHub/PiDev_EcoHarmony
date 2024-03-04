@@ -1,0 +1,71 @@
+
+    
+{% block stylesheets %}
+    <link href="{{ asset('assets/style.css') }}" rel="stylesheet" />
+
+{% endblock %}
+
+{% block body %}
+    <body>
+  <div class="container">
+    <div class="title">Registration</div>
+    <div class="content">
+           {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+        <div class="user-details">
+          <div class="input-box">
+            <span class="details">Nom</span>
+            {{ form_widget(form.nom, {'attr': {'placeholder': 'Entrez votre nom', 'required': 'required'}}) }}
+            <div>{{ form_errors(form.nom) }}</div>
+          </div>
+          <div class="input-box">
+            <span class="details">Prenom</span>
+            {{ form_widget(form.prenom, {'attr': {'placeholder': 'Enter your username', 'required': 'required'}}) }}
+            <div>{{ form_errors(form.prenom) }}</div>
+          </div>
+          <div class="input-box">
+            <span class="details">Email</span>
+            {{ form_widget(form.email, {'attr': {'placeholder': 'Enter your email', 'required': 'required'}}) }}
+            <div>{{ form_errors(form.email) }}</div>
+          </div>
+          <div class="input-box">
+            <span class="details">CIN</span>
+            {{ form_widget(form.cin, {'attr': {'placeholder': 'Entrez votre CIN', 'required': 'required'}}) }}
+            <div>{{ form_errors(form.cin) }}</div>
+          </div>
+          <div class="input-box">
+            <span class="details">Mot de passe</span>
+            {{ form_widget(form.mdp.first, {'attr': {'placeholder': 'Entez votre Mot de passe', 'required': 'required'}}) }}
+            <div>{{ form_errors(form.mdp) }}</div>
+          </div>
+          <div class="input-box">
+            <span class="details">Confirmer votre Mot de passe</span>
+            {{ form_widget(form.mdp.second, {'attr': {'placeholder': 'Confirmer votre Mot de passe', 'required': 'required'}}) }}
+            <div>{{ form_errors(form.mdp) }}</div>
+          </div>
+        <div class="input-box">
+            <span class="details">Adresse</span>
+            {{ form_widget(form.adresse, {'attr': {'placeholder': 'Entez votre', 'required': 'required'}}) }}
+            <div>{{ form_errors(form.adresse) }}</div>
+          </div>
+          <div class="input-box">
+            <span class="details">Numero de telephone</span>
+            {{ form_widget(form.numerotel, {'attr': {'placeholder': 'Entez votre Numero de telephone', 'required': 'required'}}) }}
+            <div>{{ form_errors(form.numerotel) }}</div>
+          </div>
+          <div class="input-box">
+            <span class="details">Image</span>
+            {{ form_widget(form.image, {'attr': {'placeholder': 'Entez votre image', 'required': 'required'}}) }}
+          </div>
+        </div>
+        
+        <div class="button">
+          <input type="submit" value="Register">
+        </div>
+        <div class="button">
+        <a href="{{ path('app_user_index') }}" >Retour</a>
+        </div>
+      {{ form_end(form) }}
+    </div>
+  </div>
+</body>
+{% endblock %}

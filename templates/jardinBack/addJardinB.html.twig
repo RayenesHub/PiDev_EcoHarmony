@@ -1,0 +1,21 @@
+{% extends 'admin/indexAdmin2.html.twig' %}
+
+{% block title %}Ajouter un Jardin{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Ajouter un nouveau Jardin</h1>
+    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div class="mb-3">
+        {{ form_label(form.lieu) }}
+        {{ form_errors(form.lieu) }} {# Ajoutez cette ligne pour afficher les erreurs de validation #}
+        {{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_label(form.taille) }}
+        {{ form_widget(form.taille, {'attr': {'class': 'form-control'}}) }}
+    </div>
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

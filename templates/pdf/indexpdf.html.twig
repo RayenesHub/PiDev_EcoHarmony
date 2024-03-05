@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PDF Template</title>
+</head>
+<body>
+ <section class="page-section cta">
+                  <h1 class="text-center text-uppercase" > <span class="site-heading-lower">Les évènements disponibles</span> </h1>
+                  {% for animal in animal %}
+                      <div class="container">
+                          <div class="row">
+                              <div class="col-xl-9 mx-auto">
+                                  <div class="cta-inner bg-faded rounded">
+                                      <h2 class="section-heading mb-4">
+                                      <table>
+                                          <tr>
+                                              
+                                              <td style="width: 30px;"></td>
+                                              <td style="vertical-align: top;">
+                                                  <span style="margin-top: 10px; display: inline-block;" class="section-heading-upper">-lieux:</span>
+                                                  <span style="margin-top: 10px; font-size: 16px; ">{{animal.Categorie }}</span>
+                                                  <br>
+                                                  <span style="margin-top: 10px;display: inline-block;" class="section-heading-upper">-date: </span>
+                                                  <span style="margin-top: 10px; font-size: 16px; ">{{animal.Poid }}</span>
+                                                  <br>
+                                                  <span style="margin-top: 10px;display: inline-block;" class="section-heading-upper">-heure: </span>
+                                                  <span style="margin-top: 10px; font-size: 16px; ">{{animal.Etat}}</span>
+                                                  <br>
+                                                  <span style="margin-top: 10px;" class="section-heading-upper">-Description: </span>
+                                                  <span style="margin-top: 10px;font-size: 16px;" class=" zone-texte9">{{ animal.reserve.ID}}</span>
+                                                  <br>
+                                                  
+                                              </td>
+                                          </tr>
+                                      </table>
+                                      </h2>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  {% endfor %}
+              </section>
+</body>
+</html>

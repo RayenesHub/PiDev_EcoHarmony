@@ -1,0 +1,115 @@
+{# templates/quiz/index.html.twig #}
+
+{% extends 'base2.html.twig' %}
+
+{% block title %}Quiz sur les Jardins{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    /* Ceci cible spécifiquement les éléments de votre quiz */
+    .quiz-container legend,
+    .quiz-container label,
+    .quiz-container h1,
+    .quiz-container .question label {
+        color: #003333; }
+    .recommended-garden h2 {
+        color:#003333 ; 
+    }
+ /* Styles pour le conteneur du quiz */
+.quiz-container {
+    background-color:#fca9f9e6 ; /* Couleur de fond pour contraster avec le fond du site */
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 800px; /* Largeur maximale pour le conteneur */
+    margin: auto; /* Centrer le conteneur */
+}
+
+/* Styles pour les questions et les options de réponse */
+.question {
+    margin-bottom: 20px; /* Espace entre les questions */
+}
+
+/* Styles pour les labels des boutons radio */
+.question label {
+    display: inline-block; /* Afficher les labels en ligne */
+    margin-left: 10px; /* Espace à gauche du label */
+}
+
+/* Styles pour les fieldsets */
+fieldset {
+    border: none; /* Retirer la bordure des fieldsets */
+    margin: 0;
+    padding: 0;
+}
+
+/* Styles pour les légendes */
+legend {
+    color: #4CAF50;
+    font-weight: bold;
+    margin-bottom: 10px; /* Espace en dessous de la légende */
+}
+
+/* Styles pour le bouton de soumission */
+button[type="submit"] {
+    background-color: #fbddeb; /* Vert */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 20px 0; /* Espace en haut et en bas du bouton */
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%; /* Pleine largeur */
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049; /* Vert foncé */
+}
+
+/* Styles responsives pour les petits écrans */
+@media (max-width: 768px) {
+    .quiz-container {
+        padding: 10px;
+    }
+
+    .question label {
+        display: block; /* Labels au-dessus des boutons radio sur les petits écrans */
+        margin-left: 0;
+    }
+}
+
+</style>
+{% endblock %}
+
+{% block main_content %}
+<div class="quiz-container">
+    <h1>Quiz sur les Jardins</h1>
+    {% if recommendedGarden %}
+        <div class="recommended-garden">
+            <h2>Votre jardin idéal est : {{ recommendedGarden }}</h2>
+            {# Vous pouvez ajouter ici des conseils personnalisés basés sur le type de jardin recommandé #}
+        </div>
+    {% endif %}
+   <form method="post" action="{{ path('app_quiz_result') }}">
+        {% for question in questions %}
+        <fieldset>
+            <legend>{{ question.text }}</legend>
+            {% for response in question.responses %}
+            <div>
+<input type="radio" id="q{{ loop.parent.loop.index }}_{{ loop.index }}" name="question{{ loop.parent.loop.index }}" value="{{ loop.index }}">
+
+
+                <label for="q{{ loop.parent.loop.index }}_{{ loop.index }}">{{ response.text }}</label>
+            </div>
+            {% endfor %}
+        </fieldset>
+        {% endfor %}
+        <button type="submit">Soumettre</button>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('quiz-form') }}">
+    </form>
+</div>
+{% endblock %}

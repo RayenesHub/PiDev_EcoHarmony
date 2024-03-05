@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+       <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.png') }}" />
+
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+        <!-- Inclure jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link href="{{ asset( 'css/styles.css')}}" rel="stylesheet" />
+  <script src="{{ asset('event/eventRecherche.js') }}"></script>
+    </head>
+    <body>
+        <header>
+            <h1 class="site-heading text-center text-faded d-none d-lg-block">
+                <span class="site-heading-upper text-primary mb-3">Protégeons la nature, préservons notre avenir</span>
+                <span class="site-heading-lower">The Tree Well</span>
+            </h1>
+        </header>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{{ path('app_index')}}">Acceuil</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{{ path('app_listJ')}}">Jardins</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{{ path('app_event')}}">Évènement</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{{ path('app_frontanimal')}}">Animaux</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{{ path('centre_show')}}">déchets</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{{ path('plage_show')}}">Plage</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <section class="page-section cta">
+        <style>
+    .zone-texte9 {
+        max-width: 600px; /* Définit la largeur maximale à ne pas dépasser */
+        display: inline-block; /* Permet à la balise span de respecter la propriété max-width */
+        word-wrap: break-word; /* Permet au texte de revenir à la ligne lorsque la limite de largeur est atteinte */
+        /* ou utilisez word-break: break-word; si vous avez des mots longs */
+            }
+            #live_search {
+            width: 400px; /* Largeur de l'input */
+            margin-left: 280px;
+            margin-bottom: 20px;
+            margin-top: 20px;
+            padding: 10px; /* Espacement interne */
+            font-size: 16px; /* Taille de la police */
+            border-radius: 5px; /* Coins arrondis */
+            border: 1px solid #ccc; /* Bordure */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Ombre */
+            transition: box-shadow 0.3s, width 0.3s; /* Animation de transition */
+        }
+
+        /* Style de l'input lorsqu'il est en focus */
+        #live_search:focus {
+            width: 500px; /* Largeur augmentée lorsqu'en focus */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée */
+        }
+
+        /* Style pour le placeholder */
+        ::placeholder {
+            color: #999; /* Couleur du placeholder */
+        }
+
+        </style>
+            <script>
+                var addParticipantRoute = "{{ path('app_addParticipant', {'id': 'placeholder'}) }}";
+            </script>
+            
+            {%if events is empty or events is not defined%}
+            <h1 class="text-center text-uppercase" > <span class="site-heading-lower">Pas d'évènements disponibles</span> </h1>
+        {%else%}
+            <h1 class="text-center text-uppercase" > <span class="site-heading-lower">Les évènements disponibles</span> </h1>
+            <input type="text" id="live_search" placeholder="Rechercher par nom d'évènement">
+
+            <div id="searchresult"></div>
+                    
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    
+                    $.ajax({
+                        url: "{{ path('app_allEvent') }}", 
+                        method: "POST",
+                        success: function(data) {
+                            displayEvents(data);
+                        }
+                    });
+                    
+                    $("#live_search").keyup(function(){
+                        var input = $(this).val();
+                        if(input != ""){
+                            
+                            $.ajax({
+                                url: "{{ path('app_searchEvent') }}", 
+                                method: "POST",
+                                data: { input: input },
+                                success: function(data){
+                                    displayEvents(data);
+                                }
+                            });
+                        } else {
+                            
+                            $.ajax({
+                                url: "{{ path('app_allEvent') }}", 
+                                method: "POST",
+                                success: function(data) {
+                                    displayEvents(data);
+                                }
+                            });
+                        }
+                    });
+        
+                    function displayEvents(data) {
+                        var eventsHtml = '';
+                        var events = JSON.parse(data);
+                        events.forEach(function(event) {
+                            var startDate = new Date(event.start.date);
+                                        var endDate = new Date(event.end.date);
+                                        
+                                        // Formater les dates selon les paramètres régionaux de l'utilisateur
+                                        var startDateString = startDate.toLocaleDateString() + ' à ' + startDate.toLocaleTimeString();
+                                        var endDateString = endDate.toLocaleDateString() + ' à ' + endDate.toLocaleTimeString();
+                                        var addParticipantRoute = "{{ path('app_addParticipant', {'id': 'placeholder'}) }}";
+                                        addParticipantRoute = addParticipantRoute.replace('placeholder', event.id);
+                                        // Construction de la structure HTML pour chaque événement
+                                        eventsHtml += '<div class="container">';
+                                        eventsHtml += '<div class="row">';
+                                        eventsHtml += '<div class="col-xl-9 mx-auto">';
+                                        eventsHtml += '<div class="cta-inner bg-faded rounded">';
+                                        eventsHtml += '<h2 class="section-heading mb-4">';
+                                        eventsHtml += '<table>';
+                                        eventsHtml += '<tr>';
+                                        eventsHtml += '<td><img src="' + event.affiche + '" alt="Description de l\'image" width="200" height="300"></td>';
+                                        eventsHtml += '<td style="width: 30px;"></td>';
+                                        eventsHtml += '<td style="vertical-align: top;">';
+                                        eventsHtml += '<span style="margin-top: 10px; display: inline-block;" class="section-heading-upper">-Nom:</span>';
+                                        eventsHtml += '<span style="margin-top: 10px; font-size: 16px; ">' + event.nom + '</span><br>';
+                                        eventsHtml += '<span style="margin-top: 10px; display: inline-block;" class="section-heading-upper">-Lieux:</span>';
+                                        eventsHtml += '<span style="margin-top: 10px; font-size: 16px; ">' + event.lieux + '</span><br>';
+                                        eventsHtml += '<span style="margin-top: 10px;display: inline-block;" class="section-heading-upper">-Commence le: </span>';
+                                        eventsHtml += '<span style="margin-top: 10px; font-size: 16px; ">' + startDateString + '</span><br>';
+                                        eventsHtml += '<span style="margin-top: 10px;display: inline-block;" class="section-heading-upper">-Finit le: </span>';
+                                        eventsHtml += '<span style="margin-top: 10px; font-size: 16px; ">' + endDateString + '</span><br>';
+                                        eventsHtml += '<span style="margin-top: 10px;" class="section-heading-upper">-Description: </span>';
+                                        eventsHtml += '<span style="margin-top: 10px;font-size: 16px;" class=" zone-texte9">' + event.description + '</span><br>';
+                                        eventsHtml += '<div><a class="btn btn-primary" href="' + addParticipantRoute + '">Voir Plus...</a></div>';
+                                        eventsHtml += '</td>';
+                                        eventsHtml += '</tr>';
+                                        eventsHtml += '</table>';
+                                        eventsHtml += '</h2>';
+                                        eventsHtml += '</div>';
+                                        eventsHtml += '</div>';
+                                        eventsHtml += '</div>';
+                                        eventsHtml += '</div>';
+
+                        });
+                        $("#searchresult").html(eventsHtml);
+                    }
+                });
+            </script>
+            {%endif%}
+            
+
+        </section>
+        <footer class="footer text-faded text-center py-5">
+            <div class="container"><p class="m-0 small">Copyright &copy; The Tree Well 2024</p></div>
+        </footer>
+            
+        {% endblock %}
+
+        {% block javascripts %}
+ <!-- Bootstrap core JS-->
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js') }}"></script>
+
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>

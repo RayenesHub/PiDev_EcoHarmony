@@ -1,0 +1,40 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Ajouter un jardin{% endblock %}
+
+{% block navbar %}
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+        <!-- Contenu de la navbar -->
+    </nav>
+{% endblock %}
+
+{% block main_content %}
+    <!-- Container pour le titre -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h3 class="card-title title-text">Ajouter un jardin</h3>
+                    </div>
+                    <div class="card-body">
+                        <form method="post">
+                            {{ form_start(form) }}
+                            <!-- Champs de formulaire pour ajouter un jardin -->
+                            <!-- Ajouter les champs pour l'image et l'entretien ici -->
+                            <button type="submit" class="btn btn-primary">Ajouter</button>
+                            <a href="{{ path('app_listJ') }}" class="btn btn-secondary">Annuler</a>
+                            {{ form_end(form) }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container pour la liste des jardins (pas de modifications nécessaires ici pour les nouveaux champs) -->
+    <div class="container garden-list-container">
+        <!-- Contenu pour la liste des jardins -->
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>PDF de la liste des évènements</title>
+    {% block stylesheets %}
+  {% endblock %}
+</head>
+<body>
+ <section class="page-section cta">
+                  {%if events is empty or events is not defined%}
+                <h1 class="text-center text-uppercase" > <span class="site-heading-lower">Pas d'évènements disponibles</span> </h1>
+            {%else%}
+                <h1 class="text-center text-uppercase" > <span class="site-heading-lower">Les évènements disponibles</span> </h1>
+                                        <table id="tableau-specifique">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Nom</th>
+                                                    <th>date début</th>
+                                                    <th>date fin</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for event in events %}
+                                                    <tr>
+                                                        <td>{{ event.id }}</td>
+                                                        <td>{{ event.nomEvent }}</td>
+                                                        <td>{{ event.start|date('Y-m-d') }}  à  {{ event.start|date('H:i:s') }}</td>
+                                                        <td>{{ event.end|date('Y-m-d') }}  à  {{ event.end|date('H:i:s') }}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+            {%endif%}
+              </section>
+</body>
+</html>

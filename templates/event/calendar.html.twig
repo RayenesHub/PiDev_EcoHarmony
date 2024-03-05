@@ -1,0 +1,58 @@
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.5/main.css" integrity="sha256-jLWPhwkAHq1rpueZOKALBno3eKP3m4IMB131kGhAlRQ=" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js" integrity="sha256-DBxkGZLxKsLKhz054qUpBqtotG00r9AELGpSigJujLg=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% block stylesheets %}
+        <style>
+            #calendrier{
+                width: 80%;
+                margin: auto;
+            }
+
+
+        </style>
+    {% endblock %}
+    <div id="calendrier">
+
+
+    {% block javascripts %}
+    
+        <script>
+            window.onload = () => {
+                let calendarElt = document.querySelector("#calendrier")
+
+                let calendar = new FullCalendar.Calendar(calendarElt, {
+                    initialView: 'timeGridWeek',
+                    locale: 'fr',
+                    timeZone: 'Europe/Paris',
+                    headerToolbar: {
+                        start: 'prev,next today',
+                        center: 'title',
+                        end: 'dayGridMonth,timeGridWeek'
+                    },
+                    events: {{ data|raw }},
+                    editable: true,
+                    eventResizableFromStart: true
+                    
+                })
+
+                calendar.on('eventChange', (e) => {
+                    console.log(e);
+                    let url = "{{ path('app_apiEvent') }}"
+                    let data={
+                        "id":e.event.id,
+                        "start": e.event.start,
+                        "end": e.event.end
+                    }
+                    console.log(data)
+                    let xhr = new XMLHttpRequest()
+                    xhr.open('POST',url)
+                    xhr.send(JSON.stringify(data))
+
+                })
+
+                calendar.render()
+            }
+        </script>
+        </div>
+    {% endblock %}

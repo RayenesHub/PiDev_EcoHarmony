@@ -1,0 +1,41 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Ajouter une plante{% endblock %}
+
+{% block navbar %}
+    <!-- Navbar -->
+    <!-- Le code de la navbar est déjà défini dans base.html.twig, donc on ne le répète pas ici -->
+{% endblock %}
+
+{% block main_content %}
+    <!-- Ici, vous surchargez le bloc main_content pour qu'il n'affiche rien d'autre que le formulaire d'ajout -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h3 class="card-title title-text">Ajouter une plante</h3>
+                    </div>
+                    <div class="card-body">
+                        {{ form_start(form, {'attr': {'class': 'your-custom-form-class', 'enctype': 'multipart/form-data'}}) }}
+                            <div class="mb-3">
+                                {{ form_label(form.image) }}
+                                {% if form.image.vars.value %}
+                                    <img src="{{ asset('/uploads/images/' ~ form.image.vars.value) }}" alt="Image" class="img-thumbnail">
+                                {% endif %}
+                                {{ form_widget(form.image, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                            <button type="submit" class="btn btn-primary">Ajouter</button>
+                            <a href="{{ path('app_listP') }}" class="btn btn-secondary">Annuler</a>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <!-- Footer -->
+    <!-- Le code du footer est déjà défini dans base.html.twig, donc on ne le répète pas ici -->
+{% endblock %}

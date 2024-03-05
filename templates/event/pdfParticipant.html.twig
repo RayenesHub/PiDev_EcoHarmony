@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <title>liste des participants à {{ event.nomEvent }}</title>
+    {% block stylesheets %}
+  {% endblock %}
+</head>
+<body>
+ <section class="page-section cta">
+                  {%if event.participants is empty or event is not defined%}
+                <h1 class="text-center text-uppercase" > <span class="site-heading-lower">Pas de participants dans {{ event.nomEvent }}</span> </h1>
+            {%else%}
+                <h1 class="text-center text-uppercase" > <span class="site-heading-lower">Les participants de {{ event.nomEvent }}</span> </h1>
+                                        <table id="tableau-specifique">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Nom</th>
+                                                    <th>Prenom</th>
+                                                    <th>Email</th>
+                                                    <th>ID événement</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for p in event.participants %}
+                                                    <tr>
+                                                        <td>{{ p.id }}</td>
+                                                        <td>{{ p.nomParticipant }}</td>
+                                                        <td>{{ p.prenomParticipant}}</td>
+                                                        <td>{{ p.email}}</td>
+                                                        <td>{{ p.event.id}}</td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+            {%endif%}
+              </section>
+</body>
+</html>

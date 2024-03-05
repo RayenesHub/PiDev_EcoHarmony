@@ -1,0 +1,43 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Liste des Plantes{% endblock %}
+
+{% block navbar %}
+    <!-- Navbar -->
+    <!-- Votre code de navbar reste le même -->
+{% endblock %}
+
+{% block main_content %}
+<div class="container">
+    <h2 class="text-rose">Liste des Plantes</h2>
+    <a href="{{ path('app_addPlante') }}" class="btn btn-primary mt-3">Ajouter une plante</a>
+    <div class="row">
+        {% for plante in plantes %}
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="card">
+                {% if plante.image %}
+                <img src="{{ asset('uploads/images/' ~ plante.image) }}" class="card-img-top" alt="Image de {{ plante.nom }}">
+                {% else %}
+                <img src="/chemin/vers/image/par-defaut.jpg" class="card-img-top" alt="Pas d'image disponible">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ plante.nom }}</h5>
+                    <p class="card-text"><strong>Famille :</strong> {{ plante.famille }}</p>
+                    <p class="card-text">{{ plante.description }}</p>
+                    <a href="{{ path('app_update_plante', {'id': plante.id}) }}" class="btn btn-info">Mettre à jour</a>
+                    <a href="{{ path('app_delete_plante', {'id': plante.id}) }}" class="btn btn-danger">Supprimer</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+
+</div>
+{% endblock %}
+
+
+{% block footer %}
+    <!-- Footer -->
+    <!-- Votre code de footer reste le même -->
+{% endblock %}

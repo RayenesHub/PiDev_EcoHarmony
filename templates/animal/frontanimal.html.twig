@@ -1,0 +1,152 @@
+{% extends "base.html.twig" %}
+{%block body%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+    #live_search {
+        background-color: #f2f2f2; /* Fond gris clair */
+        border-radius: 10px; /* Bordure arrondie */
+        font-size: 16px; /* Taille de police */
+        padding: 10px; /* Padding interne pour l'espacement */
+        margin-left: 430px;
+    }
+</style>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<div class="row" style="display: flex;align-items:center ;justify-content: center;margin-top: 150px;">
+    <div class="col-lg-9">
+        <div class="card">
+          <div class="card-body">
+              <a href="{{path('addformanimal')}} "><i class="fa fa-arrow-circle-left" style="font-size: 150 px;"></i></a>
+              <section class="page-section cta">
+
+                <h1 class="text-center text-uppercase"><span class="site-heading-lower">Les animaux disponibles</span></h1>
+                <input type="text" id="live_search" placeholder="Rechercher par categorie">
+                <div id="searchresult"></div>
+                
+                <script type="text/javascript">
+                    $(document).ready(function() {
+                        loadData();
+                
+                        $("#live_search").keyup(function() {
+                            var input = $(this).val().trim();
+                            if (input) {
+                                searchData(input);
+                            } else {
+                                loadData();
+                            }
+                        });
+                
+                        function loadData() {
+                            $.ajax({
+                                url: "{{ path('app_allAnimal') }}",
+                                method: "POST",
+                                success: function(data) {
+                                    console.log(data);
+                                    displayAnimals(data);
+                                }
+                            });
+                        }
+                
+                        function searchData(input) {
+                            $.ajax({
+                                url: "{{ path('app_searchAnimal') }}",
+                                method: "POST",
+                                data: { input: input },
+                                success: function(data) {
+                                    console.log(data);
+                                    displayAnimals(data);
+                                }
+                            });
+                        }
+                
+                        function displayAnimals(data) {
+                            var animalHtml = '';
+                            var animalData = JSON.parse(data);
+                            animalData.forEach(function(a) {
+                                animalHtml += '<div class="container">';
+                                animalHtml += '<div class="row">';
+                                animalHtml += '<div class="col-xl-9 mx-auto">';
+                                animalHtml += '<div class="cta-inner bg-faded rounded">';
+                                animalHtml += '<h2 class="section-heading mb-4">';
+                                animalHtml += '<table>';
+                                animalHtml += '<tr>';
+                                animalHtml += '<td><img src="' + a.image + '" alt="Description de l\'image" width="200" height="300"></td>';
+                                animalHtml += '<td style="width: 30px;"></td>';
+                                animalHtml += '<td style="vertical-align: top;">';
+                                animalHtml += '<span style="margin-top: 10px; display: inline-block;" class="section-heading-upper">-Catégorie:</span>';
+                                animalHtml += '<span style="margin-top: 10px; font-size: 16px; ">' + a.categorie + '</span><br>';
+                                animalHtml += '<span style="margin-top: 10px; display: inline-block;" class="section-heading-upper">-Poids:</span>';
+                                animalHtml += '<span style="margin-top: 10px; font-size: 16px; ">' + a.poid + '</span><br>';
+                                animalHtml += '<span style="margin-top: 10px;display: inline-block;" class="section-heading-upper">-État: </span>';
+                                animalHtml += '<span style="margin-top: 10px; font-size: 16px; ">' + a.etat + '</span><br>';
+                                animalHtml += '<span style="margin-top: 10px;display: inline-block;" class="section-heading-upper">-Description: </span>';
+                                animalHtml += '<span style="margin-top: 10px; font-size: 16px; ">' + a.description + '</span><br>';
+                                animalHtml += '</td>';
+                                animalHtml += '</tr>';
+                                animalHtml += '</table>';
+                                animalHtml += '</h2>';
+                                animalHtml += '</div>';
+                                animalHtml += '</div>';
+                                animalHtml += '</div>';
+                                animalHtml += '</div>';
+                            });
+                            $("#searchresult").html(animalHtml);
+                        }
+                    });
+                </script>
+                
+              </section>
+              <a href="{{path('app_pdfgenerate')}} ">
+             <i class="bi bi-printer"> 
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+                <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1"/>
+                <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1"/>
+              </svg></i></a>
+                </div>
+              </div>      
+          </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

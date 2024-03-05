@@ -1,0 +1,58 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}{{ 'Liste des Jardins'|trans }}{% endblock %}
+
+{% block navbar %}
+    <!-- Navbar -->
+    <!-- Votre code de navbar reste le même -->
+{% endblock %}
+
+{% block main_content %}
+<style>
+    .text-rose {
+        color: pink; /* Couleur rose */
+    }
+</style>
+    <div class="container">
+        <h2 class="quiz-invitation text-rose">{{ 'Vous voulez savoir quel est le jardin qui correspond à votre personnalité ?'|trans }}</h2>
+        <a href="{{ path('app_quiz') }}" class="btn btn-success">{{ 'faire un Quiz!'|trans }}</a>
+        <h2 class="text-rose">{{ 'Liste des Jardins'|trans }}</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="text-rose">{{ knp_pagination_sortable(pagination, 'ID'|trans, 'j.id') }}</th>
+                    <th class="text-rose">{{ knp_pagination_sortable(pagination, 'Lieu'|trans, 'j.lieu') }}</th>
+                    <th class="text-rose">{{ knp_pagination_sortable(pagination, 'Taille'|trans, 'j.taille') }}</th>
+                    <th class="text-rose">{{ 'Entretien'|trans }}</th>
+                    <th class="text-rose">{{ 'Actions'|trans }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for j in pagination %}
+                    <tr class="text-rose">
+                        <td class="text-rose">{{ j.id }}</td>
+                        <td class="text-rose">{{ j.lieu }}</td>
+                        <td class="text-rose">{{ j.taille }}</td>
+                        <td class="text-rose">{{ j.entretien }}</td>
+                        <td class="text-rose">
+                            <a href="{{ path('app_delete_jardin', {'id': j.id}) }}" class="btn btn-danger">{{ 'Supprimer'|trans }}</a>
+                            <a href="{{ path('app_update_jardin', {'id': j.id}) }}" class="btn btn-info">{{ 'Mettre à jour'|trans }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('app_addJardin') }}" class="btn btn-primary">{{ 'Ajouter un jardin'|trans }}</a>
+        <a href="{{ path('app_listP') }}" class="btn btn-primary">{{ 'Afficher les plantes'|trans }}</a>
+    </div>
+
+    <!-- Pagination -->
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <!-- Footer -->
+    <!-- Votre code de footer reste le même -->
+{% endblock %}

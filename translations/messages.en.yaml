@@ -1,0 +1,6 @@
+# translations/messages.en.yaml
+table_header_id: "ID"
+table_header_title: "Title"
+table_header_author: "Author"
+pagination.label_previous: "Previous"
+pagination.label_next: "Next"

@@ -1,0 +1,41 @@
+/* Styles pour le PDF avec un thème naturel/environnemental */
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8f8; /* Couleur de fond */
+    color: #333; /* Couleur du texte */
+}
+
+h1 {
+    color: #314c38 ; /* Couleur du titre */
+    text-align: center;
+    margin-top: 30px; /* Marge supérieure */
+    margin-bottom: 20px; /* Marge inférieure */
+}
+
+#tableau-specifique {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Marge supérieure pour le tableau */
+}
+
+#tableau-specifique th,
+#tableau-specifique td {
+    border: 1px solid #71874f; /* Bordures */
+    padding: 12px; /* Espacement interne */
+    text-align: left; /* Alignement du texte */
+}
+
+#tableau-specifique th {
+    background-color: #8ca863 ; /* Couleur de fond des en-têtes de colonne */
+    color: #314c38 ; /* Couleur du texte des en-têtes de colonne */
+    font-weight: bold; /* Style de police en gras */
+}
+
+#tableau-specifique tr:nth-child(even) td {
+    background-color: #e7d7c8; /* Couleur de fond des lignes paires */
+}
+
+#tableau-specifique tr:hover td {
+    background-color: #f2f2f2; /* Couleur de fond au survol */
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+       <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/logo.png') }}" />
+
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+  <link href="{{ asset( 'css/styles.css')}}" rel="stylesheet" />
+    </head>
+    <body>
+        <header>
+            <h1 class="site-heading text-center text-faded d-none d-lg-block">
+                <span class="site-heading-upper text-primary mb-3">Protégeons la nature, préservons notre avenir</span>
+                <span class="site-heading-lower">The Tree Well</span>
+            </h1>
+        </header>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{{ path('app_index')}}">Acceuil</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{{ path('app_listJ')}}">Jardins</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{{ path('app_event')}}">Évènement</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{{ path('app_frontanimal')}}">Animaux</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{{ path('centre_show')}}">déchets</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="{{ path('plage_show')}}">Plage</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+       
+           
+        <div class="row" style="display: flex;align-items:center ;justify-content: center;margin-top: 150px;">
+            <div class="col-lg-9">
+                <div class="card">
+                  <div class="card-body">
+                     
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Identifiant du centre</th>
+                        <th>Identifiant de l'ordure</th>                 
+                        <th>Catégorie de l'ordure</th>
+                        <th>Description</th>
+                        <th>Source</th>
+                        <th>Etat</th>                  
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- JOINTURE avec equipes(OneToMany in plage.php) -->
+                    {% for e in centre.ordures %}
+                    <tr>
+                        <td>{{ e.centre.id }}</td>
+                        <td>{{ e.id }}</td>
+                        <td>{{ e.categorie }}</td>
+                        <td>{{ e.description }}</td>
+                        <td>{{ e.source }}</td>
+                        <td>{{ e.etat }}</td>
+                        
+
+                    </tr>
+                    
+                    {% endfor %}
+                </tbody> 
+                </table>
+
+                <a href ="{{path('centre_show')}}"><button> Revenir aux centre </button></a>
+
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer text-faded text-center py-5">
+            <div class="container"><p class="m-0 small">Copyright &copy; The Tree Well 2024</p></div>
+        </footer>
+            
+        {% endblock %}
+
+        {% block javascripts %}
+ <!-- Bootstrap core JS-->
+    <script src="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js') }}"></script>
+
+        <!-- Core theme JS-->
+<script src="{{ asset('js/scripts.js') }}"></script>
+
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>

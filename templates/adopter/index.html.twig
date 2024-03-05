@@ -1,0 +1,28 @@
+
+
+<h1>New Adoptation</h1>
+   
+
+{{ form_start(form,{attr:{novalidate:'novalidate'}} )}}
+  <div style="display: flex; justify-content: center;">
+    <div class="card"  style="width: 18rem;align-items: center;justify-content: center;margin-top: 150px;padding: 10px; "   >
+      
+      
+      <div class="form-group">
+        <label for="exampleInputcategorie">Nom</label>
+        
+        {{ form_widget(form.name,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.name,{'attr':{'class':'form-danger'}}) }}
+
+      </div>
+
+      
+
+      <div class="form-group">
+        <label for="exampleInputcategorie">emailadopter</label>
+        
+        {{ form_widget(form.emailadopter,{'attr':{'class':'form-control'}}) }}
+        {{ form_errors(form.emailadopter,{'attr':{'class':'form-danger'}}) }}
+
+      </div>
+ {{ form_end(form) }}

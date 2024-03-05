@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Equipe;
+
 use App\Form\EquipeType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +12,8 @@ use App\Repository\EquipeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+
 
 
 class EquipeController extends AbstractController
@@ -23,6 +26,7 @@ class EquipeController extends AbstractController
             'plage'=>$plage
         ]);
     }
+    
     #[Route('/equipeback/{id}', name: 'equipeback_show')]
     public function back(PlageRepository $repo, $id): Response
     {
@@ -82,4 +86,5 @@ class EquipeController extends AbstractController
             'id'=>$equipe->getPlage()->getId()]);
     }
 
+    
 }
